@@ -1,6 +1,5 @@
 return {
-	"kyazdani42/nvim-web-devicons", -- If you want devicons
-	"L3MON4D3/LuaSnip",
+	"nvim-tree/nvim-web-devicons", -- If you want devicons
 	"nvim-lua/popup.nvim",
 	"famiu/bufdelete.nvim",
 	"nvim-lua/lsp-status.nvim",

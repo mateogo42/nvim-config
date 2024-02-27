@@ -1,0 +1,4 @@
+[vim]
+any = true
+[lints]
+mixed_tables = "allow"

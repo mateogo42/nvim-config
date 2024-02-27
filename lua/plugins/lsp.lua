@@ -5,44 +5,28 @@ local on_attach = function(_, bufnr)
 		vim.api.nvim_buf_set_keymap(bufnr, ...)
 	end
 	local function buf_set_option(...)
-		vim.api.nvim_buf_set_option(bufnr, ...)
+		vim.api.nvim_set_option_value(bufnr, ...)
 	end
-
-	--Enable completion triggered by <c-x><c-o>
-	buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
-
 	-- Mappings.
 	local opts = { noremap = true, silent = true }
-
-	-- Show hover docs
-	buf_set_keymap("n", "K", ":Lspsaga hover_doc<CR>", opts)
-	-- Show signature help
-	buf_set_keymap("n", "<C-k>", ":Lspsaga signature_help<CR>", opts)
-	buf_set_keymap("n", "gr", ":Lspsaga rename<CR>", opts)
-	buf_set_keymap("n", "gd", ":Lspsaga preview_definition<CR>", opts)
-	buf_set_keymap("n", "<space>ca", ":Lspsaga code_action<CR>", opts)
-	buf_set_keymap("v", "<space>ca", ":<C-U>Lspsaga range_code_action<CR>", opts)
 end
 
 local servers = {
 	lua_ls = {
-		Lua = {
-			runtime = {
-				-- LuaJIT in the case of Neovim
-				version = "LuaJIT",
-				path = vim.split(package.path, ";"),
-			},
-			diagnostics = {
-				-- Get the language server to recognize the `vim` global
-				globals = { "vim", "use", "awesome", "client", "root" },
-			},
-			workspace = {
-				-- Make the server aware of Neovim runtime files
-				library = {
-					vim.fn.expand("$VIMRUNTIME/lua"),
-					vim.fn.expand("$VIMRUNTIME/lua/vim/lsp"),
-					"/usr/share/awesome/lib",
-				},
+		workspace = {
+			checkThirdParty = false,
+		},
+		hint = {
+			enable = true,
+		},
+		runtime = {
+			pathStrict = true,
+		},
+		format = {
+			enable = true,
+			defaultConfig = {
+				indent_style = "space",
+				indent_size = "2",
 			},
 		},
 	},
@@ -94,16 +78,44 @@ return {
 			},
 			{ "williamboman/mason-lspconfig.nvim" },
 			"nvim-lua/lsp-status.nvim",
-			"tami5/lspsaga.nvim",
+			{
+				"nvimdev/lspsaga.nvim",
+				config = function()
+					require("lspsaga").setup({
+						ui = {
+							code_action = " 󰠠",
+						},
+						symbol_in_winbar = {
+							enable = true,
+							show_file = false,
+							color_mode = false,
+						},
+						lightbulb = {
+							enable = true,
+							sign = false,
+						},
+					})
+				end,
+				dependencies = {
+					"nvim-treesitter/nvim-treesitter", -- optional
+					"nvim-tree/nvim-web-devicons", -- optional
+				},
+			},
 		},
 		config = function()
 			local path = os.getenv("PATH")
 			local mason_bin = vim.fn.stdpath("data") .. "/mason/bin/"
 			vim.fn.setenv("PATH", mason_bin .. ":" .. path)
+			vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "LspDiagnosticsDefaultError" })
+
+			vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "LspDiagnosticsDefaultWarning" })
+
+			vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "LspDiagnosticsDefaultInformation" })
+
+			vim.fn.sign_define("DiagnosticSignHint", { text = "󰌵", texthl = "LspDiagnosticsDefaultHint" })
 
 			local lspconfig = require("lspconfig")
 			local lsp_status = require("lsp-status")
-			local saga = require("lspsaga")
 			-- config that activates keymaps and enables snippet support
 			local function make_config(server)
 				local capabilities =
@@ -156,7 +168,5 @@ return {
 			})
 		end,
 	},
-	{
-		"williamboman/mason.nvim",
-	},
+	{ "williamboman/mason.nvim" },
 }

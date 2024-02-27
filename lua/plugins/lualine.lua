@@ -1,3 +1,4 @@
+local lsp_status = require("lsp-status")
 -- Colors from theme
 local colors = {
 	Red = {
@@ -59,7 +60,8 @@ local config = {
 		lualine_z = {},
 	},
 	extensions = {
-		"nvim-tree",
+		"neo-tree",
+		"trouble",
 	},
 }
 
@@ -156,7 +158,7 @@ ins_right({
 ins_right({
 	"diagnostics",
 	sources = { "nvim_diagnostic" },
-	symbols = { error = " ", warn = " ", info = " " },
+	symbols = { error = " ", warn = " ", info = " " },
 	color_info = colors.Cyan.fg,
 	color_warn = colors.Yellow.fg,
 	color_error = colors.Red.fg,
@@ -210,7 +212,6 @@ return {
 	},
 	event = "VeryLazy",
 	opts = function()
-		local lsp_status = require("lsp-status")
 		return config
 	end,
 }

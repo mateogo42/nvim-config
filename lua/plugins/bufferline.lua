@@ -1,11 +1,12 @@
-local yellow = "#e5c07b"
-local red = "#e86671"
+local yellow = "#E5C07B"
+local red = "#E86671"
+local green = "#98C379"
 
 return {
 	"willothy/nvim-cokeline",
 	dependencies = {
 		"nvim-lua/plenary.nvim", -- Required for v0.4.0+
-		"kyazdani42/nvim-web-devicons", -- If you want devicons
+		"nvim-tree/nvim-web-devicons", -- If you want devicons
 	},
 	config = true,
 	opts = function()
@@ -25,14 +26,15 @@ return {
 				filetype = "neo-tree",
 				components = {
 					{
-						text = "             File Explorer",
+						text = "                NeoTree",
 						fg = yellow,
-						bg = get_hex("NvimTreeNormal", "bg"),
+						bg = function()
+							return get_hex("NvimTreeNormal", "bg")
+						end,
 						bold = true,
 					},
 				},
 			},
-
 			components = {
 				{
 					text = function(buffer)
@@ -54,11 +56,23 @@ return {
 					end,
 				},
 				{
-					text = "  ",
-					on_click = function(buffer)
+					text = function(buffer)
+						if buffer.is_modified then
+							return "  "
+						else
+							return "  "
+						end
+					end,
+					on_click = function(_, _, _, _, buffer)
 						buffer:delete()
 					end,
-					fg = red,
+					fg = function(buffer)
+						if buffer.is_modified then
+							return green
+						else
+							return red
+						end
+					end,
 					bold = true,
 				},
 			},

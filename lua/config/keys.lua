@@ -31,16 +31,22 @@ function _G.prev_completion()
 	end
 end
 
-map("i", "<C-Space>", "compe#complete()", { expr = true })
-map("i", "<Tab>", "v:lua.next_completion()", { expr = true })
-map("s", "<Tab>", "v:lua.next_completion()", { expr = true })
-map("i", "<S-Tab>", "v:lua.prev_completion()", { expr = true })
-map("s", "<S-Tab>", "v:lua.prev_completion()", { expr = true })
+vim.keymap.set("i", "<C-Space>", "compe#complete()", { expr = true })
+vim.keymap.set("i", "<Tab>", "v:lua.next_completion()", { expr = true })
+vim.keymap.set("s", "<Tab>", "v:lua.next_completion()", { expr = true })
+vim.keymap.set("i", "<S-Tab>", "v:lua.prev_completion()", { expr = true })
+vim.keymap.set("s", "<S-Tab>", "v:lua.prev_completion()", { expr = true })
 
-map("n", "<Tab>", "<Plug>(cokeline-focus-next)", { silent = true })
-map("n", "<S-Tab>", "<Plug>(cokeline-focus-prev)", { silent = true })
+vim.keymap.set("n", "<Tab>", "<Plug>(cokeline-focus-next)", { silent = true })
+vim.keymap.set("n", "<S-Tab>", "<Plug>(cokeline-focus-prev)", { silent = true })
 
-map("n", "<leader>ff", ":Telescope find_files<CR>", {})
-map("n", "<leader>fg", ":Telescope live_grep<CR>", {})
-map("n", "<leader>fb", ":Telescope buffers<CR>", {})
-map("n", "<leader>fh", ":Telescope help_tags<CR>", {})
+vim.keymap.set("n", "<leader>ff", ":Telescope find_files<CR>", {})
+vim.keymap.set("n", "<leader>fg", ":Telescope live_grep<CR>", {})
+vim.keymap.set("n", "<leader>fb", ":Telescope buffers<CR>", {})
+vim.keymap.set("n", "<leader>fh", ":Telescope help_tags<CR>", {})
+
+vim.keymap.set("n", "gd", ":Lspsaga goto_definition<CR>", {})
+vim.keymap.set("n", "gD", ":Lspsaga peek_definition<CR>", {})
+vim.keymap.set("n", "gr", ":Lspsaga rename<CR>", {})
+vim.keymap.set("n", "K", ":Lspsaga hover_doc<CR>", {})
+vim.keymap.set("n", "<leader>ca", ":Lspsaga code_action<CR>", {})
