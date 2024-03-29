@@ -1,5 +1,3 @@
-local mason_bin = vim.fn.stdpath("data") .. "/mason/bin/"
-
 return {
 	"stevearc/conform.nvim",
 	event = { "BufWritePre" },
@@ -7,7 +5,7 @@ return {
 	opts = {
 		formatters_by_ft = {
 			lua = { "stylua" },
-			python = { "black" },
+			python = { "ruff_format" },
 			rust = { "rustfmt" },
 			go = { "goimports", "gofumpt" },
 			javascript = { "prettier" },
@@ -16,6 +14,7 @@ return {
 			scss = { "prettier" },
 			css = { "prettier" },
 			html = { "prettier" },
+			ocaml = { "ocamlformat" },
 		},
 		format_on_save = { timeout_ms = 500, fallback_lsp = true },
 	},

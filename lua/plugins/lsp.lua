@@ -121,7 +121,7 @@ return {
 				local capabilities =
 					require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 				capabilities = vim.tbl_extend("keep", capabilities or {}, lsp_status.capabilities)
-				capabilities.textDocument.completion.completionItem.snippetSupport = true
+				capabilities.textDocument.completion.completionItem.snippetSupport = false
 				local config = {
 					-- enable snippet support
 					capabilities = capabilities,

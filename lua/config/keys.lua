@@ -37,9 +37,6 @@ vim.keymap.set("s", "<Tab>", "v:lua.next_completion()", { expr = true })
 vim.keymap.set("i", "<S-Tab>", "v:lua.prev_completion()", { expr = true })
 vim.keymap.set("s", "<S-Tab>", "v:lua.prev_completion()", { expr = true })
 
-vim.keymap.set("n", "<Tab>", "<Plug>(cokeline-focus-next)", { silent = true })
-vim.keymap.set("n", "<S-Tab>", "<Plug>(cokeline-focus-prev)", { silent = true })
-
 vim.keymap.set("n", "<leader>ff", ":Telescope find_files<CR>", {})
 vim.keymap.set("n", "<leader>fg", ":Telescope live_grep<CR>", {})
 vim.keymap.set("n", "<leader>fb", ":Telescope buffers<CR>", {})

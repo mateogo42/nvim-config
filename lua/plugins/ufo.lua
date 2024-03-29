@@ -31,5 +31,5 @@ return {
 			require("ufo").closeAllFolds()
 		end, {})
 	end,
-	event = "BufReadPost",
+	event = "UiEnter",
 }

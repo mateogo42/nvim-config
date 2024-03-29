@@ -1,31 +1,22 @@
 return {
 	"nvim-neo-tree/neo-tree.nvim",
+	lazy = false,
 	branch = "v3.x",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"nvim-tree/nvim-web-devicons", -- If you want devicons
 		"MunifTanjim/nui.nvim",
 	},
+	config = function(_, opts)
+		vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { link = "Normal" })
+		vim.api.nvim_set_hl(0, "NeoTreeNormal", { link = "Normal" })
+		vim.api.nvim_set_hl(0, "NeoTreeEndOfBuffer", { link = "Normal" })
+		vim.api.nvim_set_hl(0, "NeoTreeSignColumn", { link = "Normal" })
+		vim.api.nvim_set_hl(0, "NeoTreeStatusLine", { link = "Normal" })
+		vim.api.nvim_set_hl(0, "NeoTreeWinSeparator", { fg = "#282c34", bg = "#282c34" })
+		require("neo-tree").setup(opts)
+	end,
 	opts = {
-		source_selector = {
-			winbar = true,
-			sources = { -- table
-				{
-					source = "filesystem", -- string
-					display_name = " 󰉓 Files ", -- string | nil
-				},
-				{
-					source = "git_status", -- string
-					display_name = " 󰊢 Git ", -- string | nil
-				},
-			},
-			separator = "",
-			highlight_tab = "Comment",
-			highlight_tab_active = "Normal",
-			highlight_background = "Normal",
-			highlight_separator = "Comment",
-			highlight_separator_active = "Normal",
-		},
 		window = {
 			mappings = {
 				["<Tab>"] = "next_source",
