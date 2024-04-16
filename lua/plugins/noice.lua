@@ -6,7 +6,7 @@ return {
 		config = function()
 			require("noice").setup({
 				messages = { view_history = "popup" },
-				commands = { history = { view = "popup" } },
+				commands = { history = { view = "popup" }, errors = { view = "split" } },
 				lsp = {
 					progress = { enabled = false },
 					signature = { enabled = false },
@@ -25,15 +25,10 @@ return {
 				},
 				presets = { inc_rename = true },
 				routes = {
-					{
-						view = "mini",
-						filter = {
-							event = "msg_show",
-							kind = "",
-							find = "geschrieben",
-						},
-					},
-					{ view = "mini", filter = { event = { "msg_showmode", "msg_showcmd" } } },
+					{ filter = { event = { "msg_show" }, kind = "", find = "written" }, opts = { skip = true } },
+					{ filter = { event = { "msg_show" }, kind = "", find = "lines" }, opts = { skip = true } },
+					{ filter = { event = { "msg_show" }, kind = "emsg" }, opts = { skip = true } },
+					{ filter = { event = { "notify" } }, opts = { skip = true } },
 				},
 			})
 		end,

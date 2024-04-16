@@ -88,7 +88,7 @@ return {
 						symbol_in_winbar = {
 							enable = true,
 							show_file = false,
-							color_mode = false,
+							color_mode = true,
 						},
 						lightbulb = {
 							enable = true,
@@ -103,19 +103,14 @@ return {
 			},
 		},
 		config = function()
-			local path = os.getenv("PATH")
-			local mason_bin = vim.fn.stdpath("data") .. "/mason/bin/"
-			vim.fn.setenv("PATH", mason_bin .. ":" .. path)
 			vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "LspDiagnosticsDefaultError" })
-
 			vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "LspDiagnosticsDefaultWarning" })
-
 			vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "LspDiagnosticsDefaultInformation" })
-
 			vim.fn.sign_define("DiagnosticSignHint", { text = "󰌵", texthl = "LspDiagnosticsDefaultHint" })
 
 			local lspconfig = require("lspconfig")
 			local lsp_status = require("lsp-status")
+
 			-- config that activates keymaps and enables snippet support
 			local function make_config(server)
 				local capabilities =

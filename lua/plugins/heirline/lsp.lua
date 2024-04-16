@@ -6,7 +6,6 @@ return {
 		self.filename = vim.api.nvim_buf_get_name(0)
 	end,
 	condition = conditions.lsp_attached,
-	update = { "LspAttach", "LspDetach" },
 	hl = { fg = "cyan", bold = true },
 	icon,
 	common.space,
