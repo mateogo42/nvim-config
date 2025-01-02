@@ -1,6 +1,6 @@
 return {
 	"rebelot/heirline.nvim",
-	dependencies = { "navarasu/onedark.nvim" },
+	dependencies = { "echasnovski/mini.icons", "navarasu/onedark.nvim" },
 	event = "UiEnter",
 	config = function(_, opts)
 		local colors = require("onedark.colors")

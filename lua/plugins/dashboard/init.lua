@@ -1,6 +1,6 @@
 return {
 	"goolord/alpha-nvim",
-	dependencies = { "nvim-tree/nvim-web-devicons", "navarasu/onedark.nvim" },
+	dependencies = { "navarasu/onedark.nvim" },
 	event = "VimEnter",
 	cmd = "Alpha",
 	opts = function()
@@ -37,7 +37,7 @@ return {
 			},
 			{
 				{ "AlphaNeovimLogoBlue", 0, 3 },
-				{ "AlphaNeovimLogoGreenFBlueB", 4, 6 },
+				{ "AlphaNeovimLogoGreenFBlueB", 3, 6 },
 				{ "AlphaNeovimLogoGreen", 4, 21 },
 				{ "AlphaNeovimLogoBlue", 27, 42 },
 			},
@@ -48,8 +48,8 @@ return {
 				{ "AlphaNeovimLogoBlue", 29, 45 },
 			},
 			{
-				{ "AlphaNeovimLogoBlue", 0, 10 },
-				{ "AlphaNeovimLogoGreenFBlueB", 10, 12 },
+				{ "AlphaNeovimLogoBlue", 0, 9 },
+				{ "AlphaNeovimLogoGreenFBlueB", 9, 12 },
 				{ "AlphaNeovimLogoGreen", 12, 27 },
 				{ "AlphaNeovimLogoBlue", 31, 46 },
 			},
@@ -76,26 +76,26 @@ return {
 			},
 			{
 				{ "AlphaNeovimLogoBlue", 0, 15 },
-				{ "AlphaNeovimLogoGreen", 18, 34 },
-				{ "AlphaNeovimLogoGreenFBlueB", 34, 36 },
+				{ "AlphaNeovimLogoGreen", 18, 32 },
+				{ "AlphaNeovimLogoGreenFBlueB", 32, 34 },
+				{ "AlphaNeovimLogoBlue", 34, 51 },
+			},
+			{
+				{ "AlphaNeovimLogoBlue", 0, 15 },
+				{ "AlphaNeovimLogoGreen", 19, 33 },
+				{ "AlphaNeovimLogoGreenFBlueB", 33, 37 },
 				{ "AlphaNeovimLogoBlue", 37, 51 },
 			},
 			{
 				{ "AlphaNeovimLogoBlue", 0, 15 },
-				{ "AlphaNeovimLogoGreen", 19, 35 },
+				{ "AlphaNeovimLogoGreen", 20, 35 },
 				{ "AlphaNeovimLogoGreenFBlueB", 35, 37 },
 				{ "AlphaNeovimLogoBlue", 37, 51 },
 			},
 			{
 				{ "AlphaNeovimLogoBlue", 0, 15 },
-				{ "AlphaNeovimLogoGreen", 20, 36 },
-				{ "AlphaNeovimLogoGreenFBlueB", 37, 39 },
-				{ "AlphaNeovimLogoBlue", 39, 51 },
-			},
-			{
-				{ "AlphaNeovimLogoBlue", 0, 15 },
-				{ "AlphaNeovimLogoGreen", 21, 37 },
-				{ "AlphaNeovimLogoGreenFBlueB", 37, 39 },
+				{ "AlphaNeovimLogoGreen", 21, 35 },
+				{ "AlphaNeovimLogoGreenFBlueB", 35, 39 },
 				{ "AlphaNeovimLogoBlue", 39, 51 },
 			},
 			{

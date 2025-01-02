@@ -36,7 +36,6 @@ return {
 				generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
 				winblend = 0,
 				border = true,
-				color_devicons = true,
 				use_less = true,
 				path_display = {},
 				set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
@@ -50,15 +49,14 @@ return {
 		}
 	end,
 	config = function(test, opts)
-		print(vim.inspect(test))
-		print(vim.inspect(opts))
-		local builtin = require("telescope.builtin")
 		local finders = require("plugins.telescope.finders")
-		vim.keymap.set("n", "<leader>ff", finders.find_files, {})
-		vim.keymap.set("n", "<leader>fg", finders.live_grep, {})
-		vim.keymap.set("n", "<leader>fb", finders.buffers, {})
-		vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
 		local colors = require("onedark.colors")
+		vim.keymap.set("n", "<leader>ff", finders.find_files, {})
+		vim.keymap.set("n", "<leader>fs", finders.live_grep, {})
+		vim.keymap.set("n", "<leader>fb", finders.buffers, {})
+		vim.keymap.set("n", "<leader>fu", finders.lsp_references, {})
+		vim.keymap.set("n", "<leader>fi", finders.lsp_implementations, {})
+		vim.keymap.set("n", "<leader>fg", finders.grep_string, {})
 		local TelescopePrompt = {
 			TelescopePromptNormal = {
 				bg = colors.bg1,
@@ -85,7 +83,6 @@ return {
 			},
 			TelescopeSelection = {
 				bg = colors.bg0,
-				fg = colors.green,
 			},
 			TelescopePromptPrefix = {
 				fg = colors.blue,
@@ -95,6 +92,9 @@ return {
 			},
 			TelescopeMatching = {
 				fg = colors.fg0,
+			},
+			TelescopeTransparent = {
+				fg = colors.bg0,
 			},
 		}
 		for hl, col in pairs(TelescopePrompt) do

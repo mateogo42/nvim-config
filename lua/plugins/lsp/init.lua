@@ -13,20 +13,28 @@ end
 
 local servers = {
 	lua_ls = {
-		workspace = {
-			checkThirdParty = false,
-		},
-		hint = {
-			enable = true,
-		},
-		runtime = {
-			pathStrict = true,
-		},
-		format = {
-			enable = true,
-			defaultConfig = {
-				indent_style = "space",
-				indent_size = "2",
+		Lua = {
+			runtime = {
+				version = "LuaJIT",
+				path = vim.split(package.path, ";"),
+				pathStrict = true,
+			},
+			diagnostics = {
+				globals = { "vim" },
+			},
+			workspace = {
+				library = { vim.env.VIMRUNTIME },
+				checkThirdParty = false,
+			},
+			hint = {
+				enable = true,
+			},
+			format = {
+				enable = true,
+				defaultConfig = {
+					indent_style = "space",
+					indent_size = "2",
+				},
 			},
 		},
 	},
@@ -51,7 +59,19 @@ local servers = {
 			command = "clippy",
 		},
 	},
-	pyright = {},
+	ruff = {
+		trace = "messages",
+		init_options = { settings = {
+			logLevel = "debug",
+		} },
+	},
+	ts_ls = {
+		init_options = {
+			preferences = {
+				disableSuggestions = true,
+			},
+		},
+	},
 }
 
 return {
@@ -59,7 +79,7 @@ return {
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
-			"hrsh7th/cmp-nvim-lsp",
+			{ "saghen/blink.cmp" },
 			{
 				"williamboman/mason.nvim",
 				priority = 1000,
@@ -69,9 +89,9 @@ return {
 						ensure_installed = {
 							"gopls",
 							"lua_ls",
-							"pyright",
+							"ruff",
 							"rust_analyzer",
-							"tsserver",
+							"ts_ls",
 						},
 					})
 				end,
@@ -80,26 +100,31 @@ return {
 			"nvim-lua/lsp-status.nvim",
 			{
 				"nvimdev/lspsaga.nvim",
-				config = function()
-					require("lspsaga").setup({
-						ui = {
-							code_action = " 󰠠",
-						},
-						symbol_in_winbar = {
-							enable = true,
-							show_file = false,
-							color_mode = true,
-						},
-						lightbulb = {
-							enable = true,
-							sign = false,
-						},
-					})
+				opts = {
+					ui = {
+						code_action = " 󰠠",
+					},
+					lightbulb = {
+						enable = true,
+						sign = false,
+					},
+				},
+				config = function(_, opts)
+					local MiniIcons = require("mini.icons")
+					MiniIcons.mock_nvim_web_devicons()
+					require("lspsaga").setup(opts)
 				end,
 				dependencies = {
 					"nvim-treesitter/nvim-treesitter", -- optional
-					"nvim-tree/nvim-web-devicons", -- optional
+					"echasnovski/mini.icons",
 				},
+			},
+			{
+				"Wansmer/symbol-usage.nvim",
+				event = "LspAttach",
+				config = function()
+					require("symbol-usage").setup()
+				end,
 			},
 		},
 		config = function()
@@ -113,10 +138,9 @@ return {
 
 			-- config that activates keymaps and enables snippet support
 			local function make_config(server)
-				local capabilities =
-					require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-				capabilities = vim.tbl_extend("keep", capabilities or {}, lsp_status.capabilities)
-				capabilities.textDocument.completion.completionItem.snippetSupport = false
+				local capabilities = lsp_status.capabilities
+				capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
+				capabilities.textDocument.completion.completionItem.snippetSupport = true
 				local config = {
 					-- enable snippet support
 					capabilities = capabilities,
@@ -134,21 +158,13 @@ return {
 			require("mason-lspconfig").setup_handlers({
 				function(server)
 					local config = make_config(server)
-					config.settings = servers[server]
+					config.settings = servers[server] or {}
 					lspconfig[server].setup(config)
 				end,
-				["pyright"] = function()
-					local config = make_config("pyright")
-					config.root_dir = function(filename)
-						return lspconfig.util.root_pattern(
-							".git",
-							"setup.py",
-							"setup.cfg",
-							"pyproject.toml",
-							"requirements.txt"
-						)(filename) or lspconfig.util.path.dirname(filename)
-					end
-					lspconfig.pyright.setup(config)
+				["ruff"] = function()
+					local config = make_config("ruff")
+					config = vim.tbl_extend("keep", config, servers["ruff"])
+					lspconfig.ruff.setup(config)
 				end,
 				["gopls"] = function()
 					local config = make_config("gopls")
@@ -159,6 +175,11 @@ return {
 					end
 					config.settings = servers["gopls"]
 					lspconfig.gopls.setup(config)
+				end,
+				["ts_ls"] = function()
+					local config = make_config("ts_ls")
+					config.init_options = { preferences = { disableSuggestions = true } }
+					lspconfig.ts_ls.setup(config)
 				end,
 			})
 		end,

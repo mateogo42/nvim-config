@@ -1,14 +1,12 @@
 return {
 	init = function(self)
 		local filename = self.filename
-		local extension = vim.fn.fnamemodify(filename, ":e")
-		self.icon, self.icon_color =
-			require("nvim-web-devicons").get_icon_color(filename, extension, { default = true })
+		self.icon, self.icon_color = require("mini.icons").get("file", filename)
 	end,
 	provider = function(self)
 		return self.icon
 	end,
 	hl = function(self)
-		return { fg = self.icon_color }
+		return self.icon_color
 	end,
 }

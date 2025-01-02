@@ -1,7 +1,5 @@
 return {
 	"folke/trouble.nvim",
-	branch = "dev",
-	dependencies = { "nvim-tree/nvim-web-devicons" },
 	config = function(_, opts)
 		vim.keymap.set("n", "<leader>tt", function()
 			require("trouble").toggle("diagnostics")

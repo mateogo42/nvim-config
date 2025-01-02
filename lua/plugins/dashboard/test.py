@@ -1,1 +1,4 @@
-import img2art
+import math
+
+
+math.sin(1, 2, 3, 4)

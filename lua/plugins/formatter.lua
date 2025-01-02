@@ -5,7 +5,7 @@ return {
 	opts = {
 		formatters_by_ft = {
 			lua = { "stylua" },
-			python = { "ruff_format" },
+			python = { "ruff_fix", "ruff_format", "ruff_organize_impors" },
 			rust = { "rustfmt" },
 			go = { "goimports", "gofumpt" },
 			javascript = { "prettier" },
