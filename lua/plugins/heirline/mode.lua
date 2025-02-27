@@ -26,7 +26,7 @@ return {
 		},
 	},
 	provider = function()
-		return ""
+		return ""
 	end,
 	-- Same goes for the highlight. Now the foreground will change according to the current mode.
 	hl = function(self)

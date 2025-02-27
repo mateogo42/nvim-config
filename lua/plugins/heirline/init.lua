@@ -15,8 +15,6 @@ return {
 		opts.statusline = {
 			{
 				hl = { bg = "bg0" },
-				common.border,
-				common.space,
 				mode,
 				common.space,
 				common.space,
@@ -24,11 +22,9 @@ return {
 				common.align,
 				git,
 				common.align,
-				lsp,
-				common.space,
 				diagnostics,
 				common.space,
-				common.border,
+				lsp,
 			},
 		}
 		opts.tabline = { hl = { bg = "bg0" }, bufferline }

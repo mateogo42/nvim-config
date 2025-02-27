@@ -1,39 +1,29 @@
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(_, bufnr)
-	local function buf_set_keymap(...)
-		vim.api.nvim_buf_set_keymap(bufnr, ...)
-	end
-	local function buf_set_option(...)
-		vim.api.nvim_set_option_value(bufnr, ...)
-	end
-	-- Mappings.
-	local opts = { noremap = true, silent = true }
-end
-
 local servers = {
 	lua_ls = {
-		Lua = {
-			runtime = {
-				version = "LuaJIT",
-				path = vim.split(package.path, ";"),
-				pathStrict = true,
-			},
-			diagnostics = {
-				globals = { "vim" },
-			},
-			workspace = {
-				library = { vim.env.VIMRUNTIME },
-				checkThirdParty = false,
-			},
-			hint = {
-				enable = true,
-			},
-			format = {
-				enable = true,
-				defaultConfig = {
-					indent_style = "space",
-					indent_size = "2",
+		settings = {
+			Lua = {
+				runtime = {
+					version = "LuaJIT",
+					path = vim.split(package.path, ";"),
+					pathStrict = true,
+				},
+				diagnostics = {
+					globals = { "vim", "require" },
+					disable = { "missing-fields" },
+				},
+				workspace = {
+					library = { vim.env.VIMRUNTIME },
+					checkThirdParty = false,
+				},
+				hint = {
+					enable = true,
+				},
+				format = {
+					enable = true,
+					defaultConfig = {
+						indent_style = "space",
+						indent_size = "2",
+					},
 				},
 			},
 		},
@@ -61,9 +51,25 @@ local servers = {
 	},
 	ruff = {
 		trace = "messages",
-		init_options = { settings = {
-			logLevel = "debug",
-		} },
+		init_options = {
+			settings = {
+				lint = { enable = false },
+				logLevel = "debug",
+			},
+		},
+	},
+	pyright = {
+		settings = {
+			pyright = {
+				disableOrganizeImports = true,
+			},
+			python = {
+				analysis = {
+					ignore = { "*" },
+					typeCheckingMode = "off",
+				},
+			},
+		},
 	},
 	ts_ls = {
 		init_options = {
@@ -144,8 +150,6 @@ return {
 				local config = {
 					-- enable snippet support
 					capabilities = capabilities,
-					-- map buffer local keybindings when the language server attaches
-					on_attach = on_attach,
 				}
 
 				if lsp_status.extensions[server] then
@@ -158,28 +162,8 @@ return {
 			require("mason-lspconfig").setup_handlers({
 				function(server)
 					local config = make_config(server)
-					config.settings = servers[server] or {}
+					config = vim.tbl_extend("keep", config, servers[server] or {})
 					lspconfig[server].setup(config)
-				end,
-				["ruff"] = function()
-					local config = make_config("ruff")
-					config = vim.tbl_extend("keep", config, servers["ruff"])
-					lspconfig.ruff.setup(config)
-				end,
-				["gopls"] = function()
-					local config = make_config("gopls")
-					config.cmd = { "gopls", "serve" }
-					config.root_dir = function(filename)
-						return lspconfig.util.root_pattern(".git", "go.mod")(filename)
-							or lspconfig.util.path.dirname(filename)
-					end
-					config.settings = servers["gopls"]
-					lspconfig.gopls.setup(config)
-				end,
-				["ts_ls"] = function()
-					local config = make_config("ts_ls")
-					config.init_options = { preferences = { disableSuggestions = true } }
-					lspconfig.ts_ls.setup(config)
 				end,
 			})
 		end,

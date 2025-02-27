@@ -3,6 +3,7 @@ return {
 	dependencies = {
 		"mfussenegger/nvim-lint",
 		config = function()
+			-- type
 			local lint = require("lint")
 
 			lint.linters_by_ft = {
@@ -13,6 +14,7 @@ return {
 				python = { "ruff" },
 				lua = { "selene" },
 				go = { "golangcilint" },
+				sh = { "shellcheck" },
 			}
 
 			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
@@ -22,5 +24,6 @@ return {
 			})
 		end,
 	},
+	---@type mason-nvim-lint.MasonNvimLintSettings
 	opts = { ensure_installed = { "eslint_d", "ruff", "selene", "golangci-lint" } },
 }
