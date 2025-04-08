@@ -2,27 +2,8 @@ return {
 	"folke/snacks.nvim",
 	priority = 1000,
 	lazy = false,
-	---@type fun(_, opts: snacks.Config): nil
-	config = function(_, opts)
-		local colors = require("onedark.colors")
-		vim.api.nvim_set_hl(0, "FoldColumn", { link = "Comment" })
-		vim.api.nvim_set_hl(0, "Folded", { link = "Comment" })
-		vim.api.nvim_set_hl(0, "SnacksDashboardHeader", { fg = colors.purple })
-		vim.api.nvim_set_hl(0, "SnacksDashboardFooter", { fg = colors.purple })
-		vim.api.nvim_set_hl(0, "SnacksDashboardSpecial", { fg = colors.cyan })
-
-		vim.api.nvim_set_hl(0, "SnacksPicker", { bg = colors.bg0 })
-		vim.api.nvim_set_hl(0, "SnacksPickerBorder", { fg = colors.fg })
-		vim.api.nvim_set_hl(0, "SnacksPickerPrompt", { fg = colors.blue })
-		vim.api.nvim_set_hl(0, "SnacksPickerMatch", { fg = nil, bg = colors.bg0 })
-		vim.api.nvim_set_hl(0, "SnacksPickerSearch", { fg = nil, bg = colors.bg0 })
-		require("snacks").setup(opts)
-	end,
 	---@type snacks.Config
 	opts = {
-		-- your configuration comes here
-		-- or leave it empty to use the default settings
-		-- refer to the configuration section below
 		dashboard = {
 			enabled = true,
 			sections = {
@@ -30,7 +11,6 @@ return {
 					section = "terminal",
 					cmd = "pokemon-colorscripts --name gengar --no-title; sleep .1",
 					random = 10,
-					-- pane = 2,
 					indent = 13,
 					height = 20,
 				},
@@ -40,25 +20,31 @@ return {
 			},
 		},
 		statuscolumn = {
-			left = function(win, buf)
-				local is_dashboard = vim.bo[buf].filetype == "snacks_dashboard"
-				return is_dashboard and { "mark" } or { "mark", "sign" }
-			end, -- priority of signs on the left (high to low)
-			right = function(win, buf)
-				local is_dashboard = vim.bo[buf].filetype == "snacks_dashboard"
-				return is_dashboard and { "git" } or { "fold", "git" }
-			end,
+			left = { "git" },
+			right = { "fold" },
 			folds = {
-				open = true, -- show open fold icons
-				git_hl = false, -- use Git Signs hl for fold icons
+				open = true,
+				git_hl = false,
 			},
 			git = {
-				-- patterns to match Git signs
 				patterns = { "GitSign", "MiniDiffSign" },
 			},
-			refresh = 50, -- refresh at most every 50ms
+			refresh = 50,
 		},
 		picker = {
+			layouts = {
+				default = {
+					layout = {
+						backdrop = { blend = 40, bg = "" },
+					},
+				},
+				select = {
+					layout = {
+						backdrop = { blend = 40, bg = "" },
+						border = "rounded",
+					},
+				},
+			},
 			prompt = "   ",
 			formatters = {
 				file = {

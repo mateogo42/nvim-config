@@ -9,8 +9,9 @@ return {
 			commands = { history = { view = "popup" }, errors = { view = "split" } },
 			lsp = {
 				progress = { enabled = false },
-				signature = { enabled = false },
-				hover = { enabled = false },
+				signature = { enabled = true },
+				hover = { enabled = true, silent = true },
+				documentation = { enabled = true },
 			},
 			views = {
 				messages = {
@@ -23,7 +24,7 @@ return {
 					position = { row = 14, col = "50%" },
 				},
 			},
-			presets = { inc_rename = true },
+			presets = { inc_rename = true, lsp_doc_border = true },
 			routes = {
 				{ filter = { event = { "msg_show" }, kind = "", find = "written" }, opts = { skip = true } },
 				{ filter = { event = { "msg_show" }, kind = "", find = "lines" }, opts = { skip = true } },

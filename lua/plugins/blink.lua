@@ -36,7 +36,7 @@ return {
 					auto_show = function(ctx)
 						return ctx.mode ~= "cmdline"
 					end,
-					border = "single",
+					border = "rounded",
 					draw = {
 						columns = {
 							{ "kind_icon", "label", gap = 1 },
@@ -64,7 +64,7 @@ return {
 						},
 					},
 				},
-				documentation = { auto_show = true, window = { border = "single" } },
+				documentation = { auto_show = true, window = { border = "rounded" } },
 			},
 			keymap = {
 				preset = "default",
@@ -84,32 +84,7 @@ return {
 					},
 				},
 			},
-			-- cmdline = {
-			-- 	sources = function()
-			-- 		local type = vim.fn.getcmdtype()
-			-- 		-- Search forward and backward
-			-- 		if type == "/" or type == "?" then
-			-- 			return { "buffer" }
-			-- 		end
-			-- 		-- Commands
-			-- 		if type == ":" then
-			-- 			return { "cmdline" }
-			-- 		end
-			-- 		return {}
-			-- 	end,
-			-- },
 			signature = { enabled = true },
 		},
-		config = function(_, opts)
-			local colors = require("onedark.colors")
-			local blink = require("blink.cmp")
-			vim.api.nvim_set_hl(0, "BlinkCmpMenuSelection", { bg = colors.bg3 })
-			vim.api.nvim_set_hl(0, "BlinkCmpMenu", { link = "Normal" })
-			vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { link = "Normal" })
-			vim.api.nvim_set_hl(0, "BlinkCmpDoc", { bg = colors.bg0 })
-			vim.api.nvim_set_hl(0, "BlinkCmpDocBorder", { bg = colors.bg0 })
-			vim.api.nvim_set_hl(0, "BlinkCmpDocSeparator", { bg = colors.bg0 })
-			blink.setup(opts)
-		end,
 	},
 }

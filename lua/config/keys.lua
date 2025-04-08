@@ -1,5 +1,0 @@
-vim.keymap.set("n", "gd", ":Lspsaga goto_definition<CR>", {})
-vim.keymap.set("n", "gD", ":Lspsaga peek_definition<CR>", {})
-vim.keymap.set("n", "gr", ":Lspsaga rename<CR>", {})
-vim.keymap.set("n", "K", ":Lspsaga hover_doc<CR>", {})
-vim.keymap.set("n", "<leader>ca", ":Lspsaga code_action<CR>", {})

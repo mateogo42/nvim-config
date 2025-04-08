@@ -1,9 +1,9 @@
 return {
 	"rebelot/heirline.nvim",
-	dependencies = { "echasnovski/mini.icons", "navarasu/onedark.nvim" },
+	dependencies = { "echasnovski/mini.icons", "olimorris/onedarkpro.nvim" },
 	event = "UiEnter",
 	config = function(_, opts)
-		local colors = require("onedark.colors")
+		local colors = require("onedarkpro.helpers")
 		local mode = require("plugins.heirline.mode")
 		local filename = require("plugins.heirline.filename")
 		local git = require("plugins.heirline.git")
@@ -11,10 +11,10 @@ return {
 		local lsp = require("plugins.heirline.lsp")
 		local diagnostics = require("plugins.heirline.diagnostics")
 		local bufferline = require("plugins.heirline.bufferline")
-		opts.opts = { colors = colors }
+		opts.opts = { colors = colors.get_colors() }
 		opts.statusline = {
 			{
-				hl = { bg = "bg0" },
+				hl = { bg = "bg" },
 				mode,
 				common.space,
 				common.space,
@@ -27,7 +27,7 @@ return {
 				lsp,
 			},
 		}
-		opts.tabline = { hl = { bg = "bg0" }, bufferline }
+		opts.tabline = { hl = { bg = "bg" }, bufferline }
 		require("heirline").setup(opts)
 	end,
 }

@@ -11,7 +11,7 @@ return {
 	common.space,
 	{
 		provider = function()
-			local server = vim.lsp.get_active_clients({ bufnr = 0 })[1]
+			local server = vim.lsp.get_clients({ bufnr = 0 })[1]
 			return server.name
 		end,
 	},
