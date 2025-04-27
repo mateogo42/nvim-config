@@ -1,9 +1,6 @@
 return {
 	"lewis6991/gitsigns.nvim",
-	config = function(_, opts)
-		vim.api.nvim_set_hl(0, "DiffChange", { bg = nil, fg = "#d19a66" })
-		require("gitsigns").setup(opts)
-	end,
+	event = { "BufReadPre", "BufNewFile" },
 	opts = {
 		signs = {
 			add = { text = "█" },

@@ -5,7 +5,8 @@ return {
 		dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
 		---@type NoiceConfig
 		opts = {
-			messages = { view_history = "popup" },
+			notify = { position = "bottom" },
+			messages = { view_history = "popup", position = "bottom" },
 			commands = { history = { view = "popup" }, errors = { view = "split" } },
 			lsp = {
 				progress = { enabled = false },
@@ -15,13 +16,13 @@ return {
 			},
 			views = {
 				messages = {
-					position = { row = 14, col = "50%" },
+					position = { row = -1, col = -1 },
 				},
-				popupmenu = {
-					position = { row = 14, col = "50%" },
+				popup = {
+					position = { row = -1, col = -1 },
 				},
 				notify = {
-					position = { row = 14, col = "50%" },
+					position = { row = -1, col = -1 },
 				},
 			},
 			presets = { inc_rename = true, lsp_doc_border = true },

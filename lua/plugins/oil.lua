@@ -6,6 +6,7 @@ return {
 		default_file_explorer = true,
 		prompt_save_on_select_new_entry = false,
 		skip_confirm_for_simple_edits = true,
+		delete_to_trash = false,
 		float = {
 			border = "rounded",
 			max_width = 50,

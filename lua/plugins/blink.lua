@@ -2,7 +2,6 @@ return {
 	{
 		"folke/lazydev.nvim",
 		cmd = "LazyDev",
-		event = "VeryLazy",
 		dependencies = {
 			{ "gonstoll/wezterm-types" },
 		},

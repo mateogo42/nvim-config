@@ -12,7 +12,7 @@ return {
 					cmd = "pokemon-colorscripts --name gengar --no-title; sleep .1",
 					random = 10,
 					indent = 13,
-					height = 20,
+					height = 18,
 				},
 				{ section = "header", hl = "icon" },
 				{ section = "startup", padding = 5 },
@@ -75,14 +75,14 @@ return {
 		{
 			"<leader>fs",
 			function()
-				Snacks.picker.grep()
+				Snacks.picker.grep({ layout = "default" })
 			end,
 			desc = "Grep",
 		},
 		{
 			"<leader>fg",
 			function()
-				Snacks.picker.grep_word()
+				Snacks.picker.grep_word({ layout = "default" })
 			end,
 			desc = "Grep current word or selection",
 		},
@@ -103,6 +103,12 @@ return {
 			"<leader>fi",
 			function()
 				Snacks.picker.lsp_implementations()
+			end,
+		},
+		{
+			"gd",
+			function()
+				Snacks.picker.lsp_definitions()
 			end,
 		},
 	},
