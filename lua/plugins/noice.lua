@@ -2,28 +2,26 @@ return {
 	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
-		dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+			{
+				"rcarriga/nvim-notify",
+				opts = {
+					stages = "slide",
+					top_down = false,
+				},
+			},
+		},
 		---@type NoiceConfig
 		opts = {
 			notify = { position = "bottom" },
-			messages = { view_history = "popup", position = "bottom" },
+			messages = { view = "mini" },
 			commands = { history = { view = "popup" }, errors = { view = "split" } },
 			lsp = {
-				progress = { enabled = false },
+				progress = { enabled = true },
 				signature = { enabled = true },
 				hover = { enabled = true, silent = true },
 				documentation = { enabled = true },
-			},
-			views = {
-				messages = {
-					position = { row = -1, col = -1 },
-				},
-				popup = {
-					position = { row = -1, col = -1 },
-				},
-				notify = {
-					position = { row = -1, col = -1 },
-				},
 			},
 			presets = { inc_rename = true, lsp_doc_border = true },
 			routes = {

@@ -36,11 +36,9 @@ return {
 					numhl = config.diagnostics.icons_hl,
 				},
 			})
-			local servers = require("config").lsp_servers
+			local servers = config.lsp_servers
 
-			for _, server in ipairs(servers) do
-				vim.lsp.enable(server)
-			end
+			vim.lsp.enable(servers)
 		end,
 	},
 }
