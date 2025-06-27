@@ -25,16 +25,6 @@ function M.mode()
 	return string.format("%%#StatusLineMode#%s%%*", modes[current_mode])
 end
 
-function M.filename()
-	local max_width = 20
-	local file = vim.api.nvim_buf_get_name(0)
-	local filename = vim.fn.fnamemodify(file, ":p:.")
-	if #filename > max_width then
-		filename = vim.fn.pathshorten(filename)
-	end
-	return string.format("%%#StatusLineFile#%s%%*", filename)
-end
-
 function M.filetype()
 	local filetype = vim.bo.filetype
 	local icon, hl, _ = MiniIcons.get("filetype", filetype)
@@ -102,6 +92,7 @@ function M.draw()
 		lazy = true,
 		checkhealth = true,
 		snacks_picker_input = true,
+		snacks_picker_list = true,
 	}
 	if excluded_ft[vim.bo.filetype] then
 		return ""
@@ -111,8 +102,6 @@ function M.draw()
 		M.mode(),
 		M.separator(),
 		M.git(),
-		M.separator(),
-		M.filename(),
 		M.diff(),
 		"%=",
 		M.diagnostics(),

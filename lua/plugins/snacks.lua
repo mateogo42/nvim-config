@@ -10,7 +10,6 @@ return {
 				{
 					section = "terminal",
 					cmd = "pokemon-colorscripts --name gengar --no-title; sleep .1",
-					random = 10,
 					indent = 13,
 					height = 18,
 				},
@@ -58,6 +57,7 @@ return {
 			"<leader>ff",
 			function()
 				Snacks.picker.files({
+					hidden = true,
 					layout = { preset = "select" },
 				})
 			end,
@@ -67,7 +67,15 @@ return {
 			"<leader>fb",
 			function()
 				Snacks.picker.buffers({
-					layout = { preset = "select" },
+					focus = "list",
+					layout = {
+						preset = "select",
+						layout = {
+							position = "left",
+							border = false,
+							width = 35,
+						},
+					},
 				})
 			end,
 			desc = "List buffers",

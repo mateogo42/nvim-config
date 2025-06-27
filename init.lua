@@ -8,7 +8,7 @@
 require("settings")
 require("folds")
 require("statusline")
-require("bufferline")
+require("winbar")
 
 -- Check if is the first time
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
